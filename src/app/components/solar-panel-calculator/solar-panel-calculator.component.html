@@ -1,0 +1,19 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Power Output Calculator</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="solar-detail">
+            <strong>Number of Panels:</strong>
+            <mat-slider min="0" [max]="solarPotential.maxArrayPanelsCount" step="1" showTickMarks discrete>
+                <input matSliderThumb [(ngModel)]="selectedPanelCount">
+            </mat-slider>
+        </div>
+        <div class="solar-detail">
+            <strong>Total Power Output:</strong> {{ totalPowerOutput }} Watts
+        </div>
+        <div class="solar-detail">
+            <strong>Annual Energy Generation:</strong> {{ annualEnergyGeneration }} kWh
+        </div>
+    </mat-card-content>
+</mat-card>

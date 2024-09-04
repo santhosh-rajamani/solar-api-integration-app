@@ -1,0 +1,4 @@
+<agm-map [latitude]="coordindates.latitude" [longitude]="coordindates.longitude" [mapTypeId]="'satellite'"
+    (mapClick)="onTargetSelected($event)" (mapReady)="onMapReady($event)" [zoom]="16">
+    <agm-marker [latitude]="coordindates.latitude" [longitude]="coordindates.longitude" *ngIf="locationChosen"></agm-marker>
+</agm-map>

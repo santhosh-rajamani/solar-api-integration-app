@@ -1,0 +1,26 @@
+.main-container {
+    display: flex;
+    height: calc(100vh - 4rem);
+
+    .left-section {
+        flex: 1;
+    }
+
+    .right-section {
+        width: 25rem;
+
+        .instructions-template {
+            display: flex;
+            flex-direction: column;
+            margin: 1.5rem;
+        }
+
+        .selected-location-template {
+            margin: 0.5rem;
+        }
+
+        .invalid-location-template {
+            margin: 1.5rem;
+        }
+    }
+}

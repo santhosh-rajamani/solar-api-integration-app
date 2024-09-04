@@ -1,0 +1,93 @@
+<header>
+  <mat-toolbar color="primary">
+    <span>Solar Panel Estimator</span>
+  </mat-toolbar>
+</header>
+
+<main class="solar-panel-estimator-container">
+  <div class="main-container">
+    <section class="left-section">
+      <!-- Map area -->
+      <sp-insights-google-map [coordindates]="coords" (selectedLocation)="onCoordsChanged($event)">
+      </sp-insights-google-map>
+    </section>
+
+    <section class="right-section">
+      <ng-container [ngSwitch]="appState">
+        <ng-container *ngSwitchCase="appStates.INITIAL">
+          <!-- Instructions that appear at the default route -->
+          <ng-container [ngTemplateOutlet]="instructionsTemplate"></ng-container>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="appStates.LOCATION_SELECTED">
+          <!-- Temporary screen that displays the user selected coordinates -->
+          <div class="selected-location-template">
+            <h3>
+              <strong>Location selected::</strong> Coordinates ( {{coords.latitude}}, {{coords.longitude}} )
+            </h3>
+          </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="appStates.LOCATION_SELECTED_VALID">
+          <!-- Displays location, insights and calculator based on API Response -->
+          <div class="selected-location-template">
+            <h3><strong>Closest Location detected::</strong> {{buildingInsights.address}} (
+              {{buildingInsights.location.latitude}}, {{buildingInsights.location.longitude}} )
+            </h3>
+          </div>
+          <sp-insights-building-insights
+            [solarPotential]="buildingInsights.solarPotential"></sp-insights-building-insights>
+          <sp-insights-solar-panel-calculator
+            [solarPotential]="buildingInsights.solarPotential"></sp-insights-solar-panel-calculator>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="appStates.LOCATION_SELECTED_INVALID">
+          <!-- Generic Error Screen -->
+          <ng-container [ngTemplateOutlet]="invalidLocationTemplate"></ng-container>
+        </ng-container>
+      </ng-container>
+    </section>
+  </div>
+</main>
+
+<ng-template #invalidLocationTemplate>
+  <h2 class="invalid-location-template">
+    Oops! Something went wrong. Looks like you have chosen a location that is either not a building or from a country
+    for which data is not available.
+    Refer this <a href="https://developers.google.com/maps/documentation/solar/coverage" target="_blank">document</a> for coverage area details.
+  </h2>
+</ng-template>
+
+<ng-template #instructionsTemplate>
+  <div class="instructions-template">
+    <h1>
+      Welcome to Solar Panel Estimator!
+    </h1>
+
+    <div>
+      Follow the steps to get insights about solar panel installations for a building
+      <ul>
+        <li>
+          Click on a building from the map that is under <a
+            href="https://developers.google.com/maps/documentation/solar/coverage" target="_blank">coverage area</a> to drop the map marker
+        </li>
+        <li>
+          You will see get the following insights for the building
+          <ol>
+            <li>Maximum Panel Count</li>
+            <li>Panel Capacity in Watts</li>
+            <li>Maximum Sunshine hours per year</li>
+            <li>Maximum area</li>
+          </ol>
+        </li>
+        <li>
+          You can then estimate the following metrics by adjusting the number of panels in our Calculator
+          <ol>
+            <li>Total Power Output</li>
+            <li>Annual Energy Generation</li>
+          </ol>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-template>

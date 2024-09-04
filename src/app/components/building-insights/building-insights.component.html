@@ -1,0 +1,19 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Solar Panel Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="solar-detail">
+            <strong>Maximum Panel Count:</strong> {{ solarPotential.maxArrayPanelsCount }}
+        </div>
+        <div class="solar-detail">
+            <strong>Panel Capacity in Watts:</strong> {{ solarPotential.panelCapacityWatts }}
+        </div>
+        <div class="solar-detail">
+            <strong>Maximum Sunshine hours per year:</strong> {{ solarPotential.maxSunshineHoursPerYear }}
+        </div>
+        <div class="solar-detail">
+            <strong>Maximum area:</strong> {{ solarPotential.maxArrayAreaMeters2 }}
+        </div>
+    </mat-card-content>
+</mat-card>
